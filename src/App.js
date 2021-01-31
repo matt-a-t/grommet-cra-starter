@@ -1,14 +1,11 @@
-import {
-  Box,
-  Button,
-  Collapsible,
-  Grommet,
-  Layer,
-  ResponsiveContext,
-} from "grommet";
-import { FormClose } from "grommet-icons";
+import { Box, Grommet } from "grommet";
 import { useState } from "react";
+import { Router } from "@reach/router";
+
 import AppBar from "./AppBar";
+// import routes from "./routes";
+import Sidebar from "./Sidebar";
+import Login from "./Login";
 
 const theme = {
   global: {
@@ -28,57 +25,15 @@ function App() {
 
   return (
     <Grommet theme={theme} full>
-      <ResponsiveContext.Consumer>
-        {(size) => (
-          <Box fill>
-            <AppBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-            <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
-              <Box flex align="center" justify="center">
-                app body
-              </Box>
-              {!showSidebar || size !== "small" ? (
-                <Collapsible direction="horizontal" open={showSidebar}>
-                  <Box
-                    flex
-                    width="medium"
-                    background="light-2"
-                    elevation="small"
-                    align="center"
-                    justify="center"
-                  >
-                    sidebar
-                  </Box>
-                </Collapsible>
-              ) : (
-                // <Collapsible fill direction="horizontal" open={showSidebar}>
-                <Layer>
-                  <Box
-                    background="light-2"
-                    tag="header"
-                    justify="end"
-                    align="center"
-                    direction="row"
-                  >
-                    <Button
-                      icon={<FormClose />}
-                      onClick={() => setShowSidebar(false)}
-                    />
-                  </Box>
-                  <Box
-                    fill
-                    background="light-2"
-                    align="center"
-                    justify="center"
-                  >
-                    small sidebar
-                  </Box>
-                </Layer>
-                // </Collapsible>
-              )}
-            </Box>
-          </Box>
-        )}
-      </ResponsiveContext.Consumer>
+      <Box fill>
+        <AppBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+        <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
+          <Router>
+            <Login path="/login" default />
+          </Router>
+          <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+        </Box>
+      </Box>
     </Grommet>
   );
 }
