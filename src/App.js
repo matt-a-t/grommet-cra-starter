@@ -28,20 +28,15 @@ function App() {
       <AuthProvider>
         <Box fill>
           <AppBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-          <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
-            <AuthConsumer>
-              {({ user }) => (
-                <Router>
-                  <Login path="/" default />
-                  {user && <Private path="/private" />}
-                </Router>
-              )}
-            </AuthConsumer>
-            <Sidebar
-              showSidebar={showSidebar}
-              setShowSidebar={setShowSidebar}
-            />
-          </Box>
+          <AuthConsumer>
+            {({ user }) => (
+              <Router>
+                <Login path="/" default />
+                {user && <Private path="/private" />}
+              </Router>
+            )}
+          </AuthConsumer>
+          <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
         </Box>
       </AuthProvider>
     </Grommet>

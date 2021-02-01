@@ -1,8 +1,11 @@
-import { Box, Button, Heading } from "grommet";
+import { Box, Button, Heading, Text } from "grommet";
 import { Notification } from "grommet-icons";
+import { useContext } from "react";
+import AuthContext from "./AuthContext";
 
 export default function AppBar(props) {
   const { setShowSidebar, showSidebar } = props;
+  const { user } = useContext(AuthContext);
 
   return (
     <Box
@@ -17,8 +20,9 @@ export default function AppBar(props) {
       {...props}
     >
       <Heading level="3" margin="none">
-        Insurance
+        Grommet Starter
       </Heading>
+      <Text>{user ? `Hello ${user.name}` : "Please log in"}</Text>
       <Button
         icon={<Notification />}
         onClick={() => {
