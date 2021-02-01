@@ -1,11 +1,11 @@
 import { Box, Grommet } from "grommet";
 import { useState } from "react";
 import { Router } from "@reach/router";
-
 import AppBar from "./AppBar";
-// import routes from "./routes";
 import Sidebar from "./Sidebar";
 import Login from "./Login";
+import { AuthConsumer, AuthProvider } from "./AuthContext";
+import Private from "./Private";
 
 const theme = {
   global: {
@@ -25,15 +25,25 @@ function App() {
 
   return (
     <Grommet theme={theme} full>
-      <Box fill>
-        <AppBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-        <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
-          <Router>
-            <Login path="/login" default />
-          </Router>
-          <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      <AuthProvider>
+        <Box fill>
+          <AppBar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+          <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
+            <AuthConsumer>
+              {({ user }) => (
+                <Router>
+                  <Login path="/" default />
+                  {user && <Private path="/private" />}
+                </Router>
+              )}
+            </AuthConsumer>
+            <Sidebar
+              showSidebar={showSidebar}
+              setShowSidebar={setShowSidebar}
+            />
+          </Box>
         </Box>
-      </Box>
+      </AuthProvider>
     </Grommet>
   );
 }
