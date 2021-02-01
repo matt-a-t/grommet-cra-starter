@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Hey it's me
+
+Adding to create-react-app, I have started with integrating [Grommet](https://v2.grommet.io/) and Reach Router in some sensible ways. These are my opinions.
+
+# Returning to your regularly scheduled CRA Readme.
+
 ## Available Scripts
 
 In the project directory, you can run:
